@@ -1,4 +1,3 @@
-import { all } from "redux-saga/effects";
 import { store } from "../store";
 import { isClass } from "../utils/is-class";
 import { getAllMethods } from "../utils/get-all-methods";
@@ -11,9 +10,16 @@ export const injectSaga = (saga) => (Component) => {
   } else {
     const sagaWorkers = getAllMethods(saga);
 
+    const workersMetaEffects = sagaWorkers
+      .filter((sagaWorker) => Boolean(sagaWorker.metaEffectOptions))
+      .map((sagaWorker) => sagaWorker.metaEffectOptions)
+      .flat();
+
     targetSaga = {
       [saga.name]: function* () {
-        yield all(sagaWorkers.map((sagaWorker) => sagaWorker()));
+        for (const { effect, args, fn } of workersMetaEffects) {
+          yield effect(args, fn);
+        }
       },
     }[saga.name];
   }
