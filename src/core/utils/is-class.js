@@ -1,3 +1,5 @@
-export function isClass(v) {
-  return typeof v === "function" && /^\s*class\s+/.test(v.toString());
+export function isClass(candidate) {
+  return (
+    typeof candidate === "function" && /^\s*class\s+/.test(candidate.toString())
+  );
 }

@@ -1,9 +1,13 @@
-export function customElement(name) {
-  return function decorate(target) {
+export function customElement(name, options) {
+  return function decorate(constructor) {
     if (!customElements.get(name)) {
-      customElements.define(name, target);
+      customElements.define(name, constructor, options);
     }
 
-    return target;
+    constructor.toString = () => {
+      return `<${name}></${name}>`;
+    };
+
+    return constructor;
   };
 }

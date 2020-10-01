@@ -2,7 +2,7 @@ import { handleActions } from "redux-actions";
 import {
   initializeApplicationReceive,
   initializeApplicationRequest,
-} from "./actions";
+} from "containers/application/actions";
 
 const initialState = {
   isInitialized: null,

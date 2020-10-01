@@ -1,9 +1,11 @@
 import { createAction } from "redux-actions";
 
+const namespace = "application:";
+
 export const initializeApplicationRequest = createAction(
-  "initialize_application_request"
+  `${namespace}initialize_application_request`
 );
 
 export const initializeApplicationReceive = createAction(
-  "initialize_application_receive"
+  `${namespace}initialize_application_receive`
 );

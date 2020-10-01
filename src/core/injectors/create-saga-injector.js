@@ -9,6 +9,10 @@ export function createSagaInjector(runSaga, rootSaga) {
     const task = runSaga(saga);
 
     injectedSagas.set(key, task);
+
+    return function ejectSaga() {
+      injectedSagas.delete(key);
+    };
   };
 
   injectSaga(rootSaga);

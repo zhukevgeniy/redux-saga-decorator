@@ -1,9 +1,9 @@
 import { delay, put } from "redux-saga/effects";
-import { takeLatest } from "../../core/effects/takeLatest";
+import { takeLatest } from "core/effects/takeLatest";
 import {
   initializeApplicationReceive,
   initializeApplicationRequest,
-} from "./actions";
+} from "containers/application/actions";
 
 export class ApplicationSaga {
   @takeLatest(initializeApplicationRequest)
