@@ -1,19 +1,44 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
 
-  entry: './src/index.js',
+  devtool: "eval-source-map",
 
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-      }
-    ]
+        use: {
+          loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+          },
+        },
+      },
+    ],
   },
 
-  plugins: [new HtmlWebpackPlugin({template: "./src/index.html"})]
-}
+  resolve: {
+    modules: [path.resolve(__dirname, "./src"), "node_modules"],
+  },
+
+  devServer: {
+    contentBase: path.join(__dirname, "public"),
+    host: "localhost",
+    port: 8080,
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+    open: true,
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      favicon: "./public/favicon.ico",
+    }),
+  ],
+};
